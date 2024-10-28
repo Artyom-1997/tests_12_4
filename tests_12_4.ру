@@ -1,0 +1,37 @@
+# tests_12_4.py
+
+import logging
+import unittest
+from your_module import Runner  # Замените 'your_module' на имя вашего модуля, если необходимо.
+
+# Настройка логирования
+logging.basicConfig(
+    level=logging.INFO,
+    filename='runner_tests.log',
+    filemode='w',
+    encoding='utf-8',
+    format='%(levelname)s: %(message)s',
+)
+
+
+class RunnerTest(unittest.TestCase):
+
+    def test_walk(self):
+        try:
+            runner = Runner('Test', -1)  # передаём отрицательное значение в speed
+            runner.walk()
+            logging.info('"test_walk" выполнен успешно')
+        except ValueError:
+            logging.warning("Неверная скорость для Runner")
+
+    def test_run(self):
+        try:
+            runner = Runner(123, 5)  # передаём что-то кроме строки в name
+            runner.run()
+            logging.info('"test_run" выполнен успешно')
+        except TypeError:
+            logging.warning("Неверный тип данных для объекта Runner")
+
+
+if __name__ == '__main__':
+    unittest.main()
